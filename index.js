@@ -13,9 +13,9 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
-app.use(express.static(path.join(__dirname, "/ui/build")));
+app.use(express.static(path.join(__dirname, "/views/build")));
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/ui/build/index.html"));
+  res.sendFile(path.join(__dirname + "/views/build/index.html"));
 });
 
 

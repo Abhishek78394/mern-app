@@ -33,7 +33,7 @@ const Create_user = () => {
     console.log(data)
     const api = process.env.REACT_APP_API_URL;
     console.log(api)
-    await axios.post(`${api}/signup`,data ,{
+    await axios.post(`/signup`,data ,{
       headers: { 'Content-Type': 'application/json' }
     })
       .then((data) => {

@@ -25,7 +25,7 @@ export default function Data() {
  const navigate= useNavigate();
   const sumbmitHandler = async (e) => {
    const api = process.env.REACT_APP_API_URL;
-     await axios.get(`${api}/getdata?token=${token}`)
+     await axios.get(`/getdata?token=${token}`)
       .then((e) => {
         const d = e.data.products
        console.log(e)

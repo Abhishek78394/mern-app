@@ -25,7 +25,7 @@ export default function Show() {
   const sumbmitHandler = async (e) => {
    console.log(token)
    const api =process.env.REACT_APP_API_URL;
-     await axios.get(`${api}/getdata?token=${token}`)
+     await axios.get(`/getdata?token=${token}`)
       .then((e) => {
        setData(e.data.products)
         console.log(e.data.products)

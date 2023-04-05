@@ -44,7 +44,7 @@ const Update_insert = () => {
     e.preventDefault();
     console.log(data)
     const api = process.env.REACT_APP_API_URL;
-    await axios.post(`${api}/update_product`, data, {
+    await axios.post(`/update_product`, data, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((e) => {

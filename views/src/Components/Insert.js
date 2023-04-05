@@ -42,7 +42,7 @@ const Insert = () => {
   const sumbmitHandler = async (e) => {
     e.preventDefault();
     const api = process.env.REACT_APP_API_URL;
-    await axios.post(`${api}/insert`, data, {
+    await axios.post(`/insert`, data, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((e) => {

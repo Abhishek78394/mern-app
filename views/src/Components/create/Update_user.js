@@ -33,7 +33,7 @@ const Update_user = () => {
    
     const api = process.env.REACT_APP_API_URL;
    
-    await axios.post(`${api}/update_user`,data ,{
+    await axios.post(`/update_user`,data ,{
       headers: { 'Content-Type': 'application/json' }
     })
       .then((data) => {

@@ -38,7 +38,7 @@ const Home = () => {
     const fetchData = async () => {
       const apiUrl = process.env.REACT_APP_API_URL;
       try {
-        const response = await axios.get(`${apiUrl}/getdata?token=${token}`);
+        const response = await axios.get(`/getdata?token=${token}`);
         setApiData(response.data.products);
         setFilteredData(response.data.products);
       } catch (error) {

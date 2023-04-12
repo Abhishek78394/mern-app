@@ -74,7 +74,7 @@ export default function Data() {
     
       <TableContainer>
       <Heading my="8" textAlign={'center'} size={'lg'}>
- This Month data is here
+ This Month data is here...........................
   </Heading>
   <Table variant='simple'>
     <Thead  w="full"

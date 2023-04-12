@@ -45,6 +45,7 @@ const Show_user = () => {
         console.log(id)
         const api = process.env.REACT_APP_API_URL;
         await axios.get(`/delete_user?id=${id}`)
+        navigate('/show_user')
     }
 
     useEffect(() => {
@@ -65,40 +66,34 @@ const Show_user = () => {
                         <Heading my="8" textAlign={'center'} size={'lg'}>
                             Total data is here
                         </Heading>
-                        <Table variant='simple'>
-                            <Thead w="full"
-                                bg="yellow.400"
-                                p="4"
-                                css={{ borderRadius: '8px 8px 0 0' }}>
-                                <Tr>
-                                    <Th>N0.</Th>
-                                    <Th>Name</Th>
-                                    <Th>DOB</Th>
-                                    <Th>contact no</Th>
-                                    <Th> user_id </Th>
-                                    <Th> password </Th>
-                                    <Th > Aadhar_no </Th>
-                                    <Th>Adress</Th>
-                                    <Th>update</Th>
+                        <table class="table  table-striped table-bordered">
+                            <thead className="bg-primary-subtle">
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>NAME</th>
+                                    <th>DOB  </th>
+                                    <th> CONTACT NO</th>
+                                    <th>PASSWORD</th>
+                                    <th> AADHAR NO </th>
+                                    <th>ADDRESS</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
 
-                                </Tr>
-                            </Thead>
+
                             {data && data.map((e, i) => {
                                 const id = e._id
-                                return <Tbody>
-                                    <Tr>
-
-                                        <Td>{i + 1}</Td>
-                                        <Td>   {e.name ? e.name : 'noop....'} </Td>
-                                        <Td >   {e.date_of_birth ? e.date_of_birth : "noop..."} </Td>
-                                        <Td >  {e.contact_no ? e.contact_no : "noop..."}  </Td>
-                                        <Td > {e.user_id ? e.user_id : "noop.."} </Td>
-                                        <Td > {e.password ? e.password : "noop.."}   </Td>
-                                        <Td > {e.aadhar_no ? e.aadhar_no : "noop.."} </Td>
-                                        <Td>{e.permanent_add ? e.permanent_add : "noop.."}</Td>
-
-                                        <Td>{e._id ? (<>
-                                            <HStack>
+                                return <tbody>
+                                    <tr>
+                                        <td>  {i + 1}  </td>
+                                        <td>   {e.name ? e.name : 'noop....'}   </td>
+                                        <td>   {e.date_of_birth ? e.date_of_birth : "noop..."}  </td>
+                                        <td>  {e.contact_no ? e.contact_no : "noop..."}   </td>
+                                        <td>  {e.password ? e.password : "noop.."}     </td>
+                                        <td> {e.aadhar_no ? e.aadhar_no : "noop.."}   </td>
+                                        <td>   {e.permanent_add ? e.permanent_add : "noop.."} </td>
+                                        <td>  {e._id ? (<>
+                                            <p>
 
                                                 <Button key={e._id} value={e._id} onClick={delete_handler} data-key={e._id} variant={'ghost'} colorScheme={'yellow'}>
                                                     <DeleteIcon key={e._id} w={4} h={4} color="red.500" />
@@ -109,17 +104,20 @@ const Show_user = () => {
                                                         <AddIcon w={4} h={4} color="red.500" />
                                                     </Button>
                                                 </Link>
-                                            </HStack>
+                                            </p>
                                         </>
-                                        ) : "noop..."}</Td>
-                                    </Tr>
-                                </Tbody>
+                                        ) : "noop..."}  </td>
+
+
+                                    </tr>
+                                </tbody>
+
                             })}
 
+                        </table>
 
 
 
-                        </Table>
 
                     </TableContainer>
                 </Box>

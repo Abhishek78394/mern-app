@@ -1,5 +1,5 @@
 const express = require("express");
-const { homepage, signup, signin, signout, product_create,getAllProducts, getAllUSer, delete_User, delete_product, update_user, update_product } = require("../controllers/indexController");
+const { homepage, signup, signin, signout, product_create,getAllProducts, getAllUSer, delete_User, delete_product, update_user, update_product, getOneUser } = require("../controllers/indexController");
 const router = express.Router();
 
 
@@ -20,6 +20,7 @@ router.get("/getUser", getAllUSer);
 
 // //  delete user 
 router.get("/delete_user", delete_User);
+router.get("/update_user", getOneUser );
 
 // //  update user 
 router.post("/update_user", update_user);

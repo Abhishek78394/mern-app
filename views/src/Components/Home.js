@@ -36,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = process.env.REACT_APP_API_URL;
+      const api = process.env.REACT_APP_API_URL;
       try {
         const response = await axios.get(`/getdata?token=${token}`);
         setApiData(response.data.products);
@@ -52,7 +52,7 @@ const Home = () => {
     const id = e.target.closest('[data-key]').getAttribute('data-key');
     console.log(id)
     const api = process.env.REACT_APP_API_URL;
-    await axios.get(`${api}/delete_product?id=${id}`)
+    await axios.get(`/delete_product?id=${id}`)
   }
 
   const updateHnadler = (e) => {

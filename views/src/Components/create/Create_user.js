@@ -12,10 +12,9 @@ const Create_user = () => {
   const [date_of_birth,setDate_of_birth] = useState('');
   const [permanent_add, setPermanent_add] = useState('');
   const [aadhar_no, setAadhar_no] = useState('');
-
+const [err, setErr] = useState('');
   const data = {
     name,
-
     contact_no,
     date_of_birth,
     permanent_add,
@@ -41,7 +40,8 @@ const Create_user = () => {
 
         navigate('/show_user')
       }).catch(error => {
-        console.log(error)
+        console.log(error.response.data.message)
+        setErr(error.response.data.message)
       })
 
     }
@@ -66,6 +66,7 @@ const Create_user = () => {
               focusBorderColor="yellow.500"
             />
           </Box>
+          
           <Box my={'4'}>
             <FormLabel htmlFor="Date_of_birth" children="date_of_birth" />
             <Input
@@ -115,7 +116,7 @@ const Create_user = () => {
               focusBorderColor="yellow.500"
             />
           </Box>
-
+{err && err}
           <Button my="4" colorScheme={'yellow'} type="submit">
            create user
           </Button>

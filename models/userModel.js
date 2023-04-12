@@ -1,8 +1,6 @@
-
 const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
-
 
 const userModel = new mongoose.Schema(
     {
@@ -15,16 +13,15 @@ const userModel = new mongoose.Schema(
             type: String,
             require: [true, "date of brith is required"],
         },
-        user_id: {
-            type: String,
-            require: [true, "userid is required"],
-            
-        },
+        // email: {
+        //     type: String,
+        //     require: [true, "email is required"],
+        //     validate: [validator.isEmail, "email is invalid"],
+        // },
         password: {
             type: String,
             minLength: [6, "name must have atleast 4 characters"],
             required: [true, "name field must not empty"],
-        
         },
         type: {
             type: String,

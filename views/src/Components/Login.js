@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-    const [user_id, setUser_id] = useState('');
+    const [name, setName] = useState('');
     const [logined, setLogined] = useState(false);
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Login = () => {
       e.preventDefault();
       const api = process.env.REACT_APP_API_URL;
       console.log(api)
-      await axios.post(`/signin`,{user_id,password} ,{
+      await axios.post(`/signin`,{name,password} ,{
         headers: { 'Content-Type': 'application/json' }
       })
         .then((data) => {
@@ -48,14 +48,14 @@ const Login = () => {
         
         <form onSubmit={sumbmitHandler} style={{ width: '100%' }}>
         <Box my={'4'}>
-            <FormLabel htmlFor="user_id" children="user_id " />
+            <FormLabel htmlFor="name" children="name " />
             <Input
               required
-              id="user_id"
-              value={user_id}
-              onChange={e => setUser_id(e.target.value)}
-              placeholder="abc@gmail.com"
-              type={'email'}
+              id="name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="John DOe"
+              type={'text'}
               focusBorderColor="yellow.500"
             />
           </Box>

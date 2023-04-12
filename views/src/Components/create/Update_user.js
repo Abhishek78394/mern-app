@@ -1,6 +1,6 @@
 import { Box, Button, Container, FormLabel, Heading, Input, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useDispatch } from "react-redux";
@@ -12,7 +12,9 @@ const Update_user = () => {
   const [date_of_birth,setDate_of_birth] = useState('');
   const [permanent_add, setPermanent_add] = useState('');
   const [aadhar_no, setAadhar_no] = useState('');
-
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const data = {
     name,
@@ -22,18 +24,25 @@ const Update_user = () => {
     aadhar_no,id
   }
 
+  const api = process.env.REACT_APP_API_URL;
+const getuser = async()=>{
+  axios.get(`/update_user?id=${id}`).then((e)=>{
+    const data = e.data.user;
+    console.log(e)
+    setName(data.name)
+    setPermanent_add(data.permanent_add)
+    setAadhar_no(data.aadhar_no)
+    setContact_no(data.contact_no)
+    setPassword(data.password)
+    setDate_of_birth(data.date_of_birth)
+  })
+}
 
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const cookies = new Cookies();
   const sumbmitHandler = async (e) => {
     e.preventDefault();
-   
-    const api = process.env.REACT_APP_API_URL;
-   
-    await axios.post(`/update_user`,data ,{
+    await axios.post(`${api}/update_user`,data ,{
       headers: { 'Content-Type': 'application/json' }
     })
       .then((data) => {
@@ -41,14 +50,18 @@ const Update_user = () => {
       }).catch(error => {
         console.log(error)
       })
-
     }
 
+
+    useEffect(() => {
+      getuser()
+    }, [])
+    
   return (
     <>
   <Container h={'95vh'}>
         <VStack h={'full'} justifyContent="center" spacing={'16'}>
-        <Heading children={'Welcome '} />
+        <Heading children={'update profile '} />
 
         
         <form onSubmit={sumbmitHandler} style={{ width: '100%' }}>
@@ -98,6 +111,18 @@ const Update_user = () => {
               value={permanent_add}
               onChange={e => setPermanent_add(e.target.value)}
               placeholder="Enter Permanent address"
+              type={'text'}
+              focusBorderColor="yellow.500"
+            />
+          </Box>
+          <Box my={'4'}>
+            <FormLabel htmlFor="password" children="password" />
+            <Input
+              required
+              id="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Enter password"
               type={'text'}
               focusBorderColor="yellow.500"
             />

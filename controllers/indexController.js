@@ -25,21 +25,18 @@ const generateRandomPassword = () => {
 
 exports.signup = async (req, res, next) => {
   try {
-    let user = await User.findOne({ user_id: req.body.user_id }).exec();
-    if (user) {
-      return res.status(501).json({ message: "user exists" });
-    }
-   
-    const user_id = generateRandomString(10);
+    // let user = await User.findOne({ email: req.body.email }).exec();
+    // if (user) {
+    //   return res.status(501).json({ message: "user exists" });
+    // }   
     const password = generateRandomPassword();
     const newUser = new User({
       ...req.body,
-      user_id,
       password,
     }); 
-     user = await newUser.save();
-    return res.json(user);
-    res.json(user);
+    await newUser.save();
+    return res.json(newUser);
+    res.json(newUser);
   } catch (error) {
     res.status(501).json({ message: error.message });
   }
@@ -48,9 +45,8 @@ exports.signup = async (req, res, next) => {
 
 exports.signin = async (req, res, next) => {
   try {
-    const { user_id, password } = req.body;
-    let user = await User.findOne({ user_id }).exec();
-    console.log(user)
+    const { name, password } = req.body;
+    let user = await User.findOne({ name }).exec();
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -66,7 +62,23 @@ exports.signin = async (req, res, next) => {
     res.status(501).json({ message: error.message });
   }
 };
+exports.getOneUser = async (req, res, next) => {
 
+    try {
+      const id = req.query.id;
+      const user = await User.findById(id);
+  
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+     
+     return res.status(200).json({ message: "user", user });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+ }
 
 exports.getAllUSer = async (req, res, next) => {
   const token = req.query.token;
@@ -98,6 +110,9 @@ try {
   console.log(error)
 }
 }
+
+
+
 exports.update_user = async (req, res, next) => {
   const userId = req.body.id;
   try {
@@ -109,7 +124,6 @@ exports.update_user = async (req, res, next) => {
         message: 'User not found',
       });
     }
-
     res.status(200).json({
       success: true,
       message: 'User updated successfully',
@@ -188,12 +202,14 @@ console.log(e)
 
 
 exports.getAllProducts = async (req, res, next) => {
-  const token = req.query.token;
+  const token = req.query.token 
   if (!token) return res.status(401).json("Not logged in!")
   jwt.verify(token, "secretkey", async (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const products = await Product.find().exec();
-    res.status(200).json({ message: "all blogs", products });
+    const pick_products = await Product.find({status: "Pick"})
+    const deliver_products = await Product.find({status: "Deliver"})
+    
+    return res.status(200).json({ message: "all blogs", products :pick_products, deliver_products });
   })
 }
 
